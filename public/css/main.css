@@ -1,0 +1,263 @@
+html, body {
+    width: 100%;
+    height: 10000px;
+    padding:0;
+    margin:0;
+    background-color: #F7F7F7;
+    /* background-color:rgb(247, 246, 245); */
+ }
+ nav{
+    position: fixed;
+    float: right;
+    width: 100%;
+    height: 45px;
+    background-color:white;
+    margin:0px;
+    padding: 0px;
+    top:0;
+    left:0;
+    box-shadow: 0px 2.5px 0.1px 0.9px #EEEEEE;
+}
+.title_logo a{
+    position: absolute;
+    font-weight: 400;
+    margin:-10 0 0 50; 
+    float: left;
+    color:black;
+    font-weight: 700;
+    font-family: monospace;
+    text-decoration: none;
+}
+
+
+input.search{
+    position: absolute;
+    float: left;
+    width: 500px;
+    margin: 10 0 0 460;
+    height:30px;   
+    font-size: 15px;
+    border-color: rgb(124, 181, 239)
+}
+img.search{
+   position: absolute;
+    width:25px;
+    height: 25px;
+    margin:12 0 0 970;
+    float: left;
+    cursor: pointer;
+}
+img.profiel{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    margin: 15 0 0 20;
+    object-fit: cover;
+    border-radius: 50%;
+    float: left;
+    cursor: pointer;
+    visibility: hidden;
+}
+h2.login{
+    position: absolute;
+    float: left;
+    margin: 15 0 0 1300;
+    font-size: 20;
+    font-weight: 200;
+    cursor: pointer;
+    visibility: visible;
+}
+h2.user_name{
+    position: absolute;
+    font-size: 16;
+    margin: 35 0 0 90;
+    visibility: hidden;
+    font-weight: 400;
+    color:rgb(82, 85, 87)
+}
+
+nav.sidebar{
+    position: fixed;
+    float: left;
+    width: 15%;
+    height: 1000px;
+    margin-top: 50px;
+    background-color: #F3F3F3;
+
+}
+
+div.content{
+    position: static;
+    margin-top: 50px;
+    float: right;
+    width: 85%;
+    height: 100%;
+    background-color: white
+}
+
+h3.menue{
+    position:relative;font-weight:500;margin: 20;font-size:20px;
+    color:rgb(82, 85, 87);
+    cursor: pointer;
+}
+@media (max-width:1140px){
+    h2.user_name{
+        position: absolute;
+        font-size: 16;
+        margin: 82 0 0 23;
+        visibility: hidden;
+        
+    }
+}
+
+.content_header_title{
+    color:#352614;
+    top:10%;
+    margin-left:45%;
+}
+
+.addBtn{
+    
+    position: relative;
+    cursor: pointer;
+
+}
+
+.idea_list{
+    position: relative;
+    width:100%;
+    height:auto;
+    margin-top: 0px;
+    margin-left: 135px;  
+}
+.idea{
+    position:relative;
+    float:left;
+    width:300px;
+    height:180px;
+    margin:10px;
+    background-color: rgb(183, 183, 194)
+}
+.idea_left{
+    float: left;
+    background-color:rgb(239, 237, 235);
+    width:30%;
+    height:100%;
+}
+.idea_right{
+    float: left;
+    background-color:white;
+    width:70%;
+    height:100%;
+}
+
+.profile{
+    margin-top:20%;
+    margin-left:22%;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.idea_left_state{
+    width:100%;
+    height:auto;
+    float: left;
+    margin-top:50px;
+}
+.comment_state{
+    float:left;
+    width: 100%;
+    height: auto;   
+}
+
+.comment_icon{
+    float: left;
+    margin-left:7px;
+    width: 15px;
+    height: 15px;
+}
+.comment_cnt{
+    display: inline;
+    margin-left:10px;
+    font-size:12px;
+    color:rgb(175, 167, 159);
+}
+.good_state{
+    float:left;
+    width: 100%;
+    height: auto;
+    margin-top:5px;
+}
+.good_icon{
+    float: left;
+    margin-left:7px;
+    width: 15px;
+}
+.good_cnt{
+    display: inline;
+    margin-left:10px;
+    font-size:12px;
+    color:rgb(175, 167, 159);
+}
+
+.registration_date_state{
+    float:left;
+    width: 100%;
+    height: auto;
+    margin-top:5px;
+}
+.clock_icon{
+    float: left;
+    margin-left:7px;
+    width: 15px;
+}
+.date{
+    display: inline;
+    margin-left:10px;
+    font-size:12px;
+    color:rgb(175, 167, 159);
+}
+.comment{
+    width:100%;
+    height:70%;
+    
+}
+.comment_text{
+    color:black;
+    font-size:12px;
+    margin:10px;
+    /* background-color: aqua; */
+}
+.comment_text_a{
+    margin:10px;
+    text-decoration: none;
+}
+.good_btn_div{
+    width:100%;
+    height: 30%;
+    /* background-color: antiquewhite;   */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

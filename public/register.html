@@ -1,0 +1,311 @@
+<html>
+    <head>
+        <title>register page</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="./css/login.css">
+        <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.js"></script>
+        <script>
+
+$(document).ready(function(){
+  var fileTarget = $('.filebox .upload-hidden');
+
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            var filename = $(this)[0].files[0].name;
+        } else {
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        }
+
+        $(this).siblings('.upload-name').val(filename);
+    });
+});
+
+
+    // $('.input_form').ajaxForm({
+    //     beforeSubmit : function(){
+    //         if(confirm==false){
+    //             alert("중복확인!");
+    //             return;
+    //         }
+                
+    //     },
+    //     success : function(data){
+    //         console.log(data);
+
+    //     }
+    // });
+
+            var confirm=false;
+            $(document).ready(function(){
+
+                $('#ex_filename').on("change",handleImgFileSelect);
+
+
+                $('.register_email2_input').val($('#email').val());
+                
+                $('.register_id_input').on('change keyup paste',function(){
+                    $(".check_id").text("");
+                });
+                $('.register_pw1_input').on('change keyup paste',function(){
+                    $(".check_pw1").text("");
+                });
+                $('.register_pw2_input').on('change keyup paste',function(){
+                    $(".check_pw2").text("");
+                });
+                $('.register_email1_input').on('change keyup paste',function(){
+                    $(".check_email").text("");
+                });
+                $('.register_email2_input').on('change keyup paste',()=>{
+                    $(".check_email").text(""); 
+                });
+                $('#email').on('change',()=>{
+                    if($('#email').val()=="self"){
+                        $('.register_email2_input').val("");
+                        $('.register_email2_input').focus();
+                        
+                        return;
+                    }
+                    $('.register_email2_input').val($('#email').val());
+                });
+                
+
+
+                $('#email').click(()=>{
+                    $(".check_email").text("");
+                });
+
+                $('.phone').focusin(()=>{
+                    $('.check_phone').text("");
+                });
+                $('.email').focusin(()=>{
+                    $('.check_email').text("");
+                });
+
+
+                $('.confirm_id').click(()=>{
+                    
+                    var val=$('.register_id_input').val();
+                    var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+                    
+                    if(val==""){
+                        $('.check_id').css('color','red');
+                        $(".check_id").text("ID를 입력해 주세요.");
+                        $('.register_id_input').focus();
+                        confirm=false;
+                        return;
+                    }
+                    else if(check.test(val)){
+                        $('.check_id').css('color','red');
+                        $(".check_id").text("ID에 한글은 포함할 수 없습니다.");
+                        $('.register_id_input').focus();
+                        confirm=false;
+                        return;
+                    }
+                    else if(3>val.length||val.length>10){
+                        $('.check_id').css('color','red');
+                        $(".check_id").text("ID는 3~10글자로 입력해 주세요.");
+                        $('.register_id_input').focus();
+                        confirm=false;
+                        return;
+
+
+                    }
+                    else{
+                        
+                        $.post('/confirmId',{id:val},(res)=>{
+                            if(res=="success"){
+                                $('.check_id').css('color','green');
+                                $(".check_id").text("사용 가능한 ID입니다.");
+                                confirm=true; 
+                            }
+                            else{
+                                $('.check_id').css('color','red');
+                                $(".check_id").text("이미 사용 중인 ID입니다.");
+                                confirm=false; 
+                            }
+                        });
+                    }
+                });
+                $('.register_btn').click(()=>{
+                    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+                    var phExp = /^\d{3}-\d{3,4}-\d{4}$/;
+                    var telExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
+                    var id=$('.register_id_input').val();
+                    var pw1=$('.register_pw1_input').val();
+                    var pw2=$('.register_pw2_input').val();
+                    var email=$('.register_email1_input').val()+"@"+$('.register_email2_input').val();
+                    var phone=$('.register_phone1_input').val()+"-"+$('.register_phone2_input').val()+"-"+$('.register_phone3_input').val();
+                    
+                    
+                    if(confirm==false){
+                        $('.check_id').text("ID 중복 확인을 해 주세요.");
+                        $('.confirm_id').focus();
+                        return false;
+                    }
+                    else if(id==""){
+                        $(".check_id").text("ID를 입력해 주세요.");
+                        $('.register_id_input').focus();
+                        return false;
+                    }
+                    else if(pw1==""){
+                        $('.check_pw1').text("Password를 입력해 주세요.");
+                        $('.register_pw1_input').focus();
+                        return false;
+                    }
+                    else if(4>pw1.length||pw1.length>15){
+                        $('.check_pw1').text("Password는 4~15글자로 입력해 주세요.");
+                        $('.register_pw1_input').focus();
+                        return false;
+
+                    }
+                    else if(pw2==""){
+                        $('.check_pw2').text("Password를 입력해 주세요.");
+                        $('.register_pw2_input').focus();
+                        return false;
+                    }
+                    else if(pw1!=pw2){
+                        $('.check_pw2').text("Password가 틀렸습니다.");
+                        $('.register_pw2_input').focus();
+                        return false;
+                    }
+                    else if($('.register_email1_input').val()=="" || $('.register_email2_input').val()==""){
+                        $('.check_email').text("E-mail을 입력해 주세요.");
+                        return false;
+                    }
+                    else if(email_check(email)==false){
+                        $('.check_email').text("");
+                        $('.check_email').text("E-mail을 입력해 주세요.");
+                        alert("2");
+                        $('.register_email1_input').focus();
+                        alert("3");
+                        return false;
+                    }
+                    else if($('.register_phone1_input').val()=="" || $('.register_phone2_input').val()=="" || $('.register_phone3_input').val()==""){
+                        $(".check_phone").text("전화번호를 입력해 주세요.");
+                        return false;
+                    }
+                    else if(!phExp.test(phone)&&!telExp.test(phone)){
+                        $(".check_phone").text("유효하지 않은 전화번호입니다.");
+                        return false;
+                    }
+                    else{
+                        var form = $('.input_form')[0];
+                        var data = new FormData(form);
+                        if($('.upload-name').val()=="파일선택"){
+                             alert("!!");
+                            
+                        }                       
+                        $.ajax({
+                            type:"POST",
+                            enctype:"multipart/form-data",
+                            url: "/addUser",
+                            data:data,
+                            processData: false,
+                            contentType: false,
+                            cache: false, 
+                            timeout: 600000,
+                            success: function (data) {
+                                location.href="/main.html";
+                            },
+                            error: function (e) {
+                                console.log("ERROR : ", e);
+                                
+                            } 
+                        });
+                    }    
+                });
+             });
+            function email_check( email ) {
+                var regex=/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+                return (email != '' && email != 'undefined' && regex.test(email));
+            }
+
+            function handleImgFileSelect(e){
+                var files=e.target.files;
+                var filesArr=Array.prototype.slice.call(files);
+
+                filesArr.forEach(function(f){
+                    if(!f.type.match("image.*")){
+                        alert("확장자는 이미지 확장자만 가능합니다.");
+                        return;
+                    }
+
+                    sel_file=f;
+
+                    var reader=new FileReader();
+                    reader.onload=function(e){
+                        $("#img").attr("src",e.target.result);
+                        $("#img").attr("style","margin-top:-70px;margin-right: 20px; float:right;width: 100px;height: 100px;object-fit: cover;border-radius: 50%;");
+                    }
+                    reader.readAsDataURL(f);
+
+                });
+
+
+                 
+            }
+        </script>
+        
+    </head>
+    <body>
+
+
+        <div class='dialog'>
+
+            <div class="register_dialog">
+                <h2 class="register_title">Sign Up</h2>
+                <form class="input_form" action="/addUser" method="post" enctype="multipart/form-data">
+                    <div>
+                        <h3 style="color: white;margin:0 auto;">Profile Image</h3><br>
+                        <div class="filebox bs3-primary">
+                            <input class="upload-name" value="파일선택" disabled="disabled">
+                            <label for="ex_filename">업로드</label> 
+                            <input type="file" id="ex_filename" class="upload-hidden" style="visibility: hidden;" name="file"> 
+                        </div>
+                        <div>
+                            <img src="http://localhost:3000/img/none.jpg" style="margin-top:-70px;margin-right: 20px; float:right;width: 100px;height: 100px;object-fit: cover;border-radius: 50%;" id="img">
+                        </div>
+                    </div>
+
+                    <div style="margin-top:40px;">
+                        <h3 style="color: white;margin:0 auto;">ID<p class='check_id check' style="display: inline;color:red;margin-left:30px;font-weight:100;"></p></h3>
+                        <input class="register_id_input" type="text" placeholder="영문, 숫자 3~10글자" name="id"><input type="button" class="confirm_id" value="중복 확인"/></br></br>
+                    </div>
+                    <h3 style="color: white;margin:0 auto;">Password<p class='check_pw1 check' style="display: inline;color:red;margin-left:30px;font-weight:100;"></p></h3>
+                    <input class="register_pw1_input" type="password" placeholder="4~15글자" name="pw"></br></br>
+                    <h3 style="color: white;margin:0 auto;">Confirm Password<p class='check_pw2 check' style="display: inline;color:red;margin-left:30px;font-weight:100;"></p></h3>
+                    <input class="register_pw2_input" type="password" placeholder="확인"></br></br>
+                    <h3 style="color: white;margin:0 auto;">E-mail<p class='check_email' style="display: inline;color:red;margin-left:30px;font-weight:100;"></p></h3>
+                    <input class="register_email1_input email" type="text" name="email1"><span style="color:white"> @</span>
+                    <input class="register_email2_input email" type="text" name="email2">
+                    <select name="" id="email" class="email">
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="yahoo.com">yahoo.com</option>
+                        <option value="self">직접 입력</option>
+                    </select>
+                    </br></br>
+                    <h3 style="color: white;margin:0 auto;">Phone Number<p class='check_phone check' style="display: inline;color:red;margin-left:30px;font-weight:100;"></p></h3>
+                    <input class="register_phone1_input phone" type="text" name="phone1"><span style="color:white"> -</span>
+                    <input class="register_phone2_input phone" type="text" name="phone2"><span style="color:white"> -</span>
+                    <input class="register_phone3_input phone" type="text" name="phone3">
+                    <div>
+                        <input type="button" class="register_btn" value="Sign Up">
+                        <!-- <button class="register_btn">Sign Up</button> -->
+                    </div>
+                    
+                          
+              
+                    
+
+                    
+                </form>
+            </div>
+        </div>
+       
+
+
+        
+    </body>
+</html>

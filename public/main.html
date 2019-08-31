@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>iSharing</title>
+        <link rel="stylesheet" href="css/main.css">
+        <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+        <script src="js/main.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                $.post('/sessionCheck',(res)=>{
+                    $('.login').empty();
+                    if(res.result=="success"){
+                        //$('.login').text('LOGOUT');
+                        $('.profiel').css('visibility','visible');
+                        $('.user_name').css('visibility','visible');
+                        $('.user_name').text(res.id);
+                        $('.login').css('visibility','hidden');
+                        console.log(res.img);
+                        $('.profiel').attr('src',`http://localhost:3000/img/${res.img}`);
+                    }
+                    else if(res.result=="fail"){
+                        $('.login').css('visibility','visible');
+                        $('.login').text('LOGIN');
+                    }
+                });
+                $('.login').click(function(){
+                    if($('.login').text()=='LOGIN'){
+                        location.href="/login.html";
+                    }
+                    else if($('.login').text()=='LOGOUT'){
+                        $.post('/logout',()=>{
+                            alert("로그아웃 되었습니다.");
+                            location.href=location.href;
+                        });
+                    }
+                });
+            });
+
+
+
+
+        </script>
+    </head>
+    <body>
+        <nav>
+            <div style="position:relative;">
+                    <h2 class="title_logo"><a style="" href="/main.html"><span style="font-size: 25px; font-weight: bold;">i</span>Sharing</a></h2>
+                    <input class="search" type="text">
+                    <img class="search" src="./img/search.png">
+                    <h2 class="login">LOGIN</h2>
+                    
+            </div>
+        </nav>
+
+
+        <div style="width:100%;height:100%">
+                <nav class="sidebar">   
+                    <img class="profiel" src="./img/none.jpg">
+                    <h2 class="user_name"></h2>
+                    <div style="width:100%;height:500px;margin-top:200px;">
+                        <h3 class="menue">게시판</h3>
+                        <h3 class="menue">Q&A</h3>
+                        <h3 class="menue">커뮤니티</h3>
+                        <h3 class="menue">게시글</h3>
+                        <button class="addBtn">add content</button>
+                    </div>
+                </nav>
+                
+                
+                <div class="content">
+                        <!-- <img class="page_up" src="./img/page_up.png"> -->
+                        <div class="content_header">
+                            <h3 class="content_header_title"><img src="./img/idea.png" style="width:25px;height:25px;">모두의 아이디어</h3>
+                            <div class="text_input_div">
+            
+                            </div>
+                        </div>
+            
+            
+                        
+                        <div class="idea_list">
+                            
+                            
+                        </div>
+                        
+            
+                        
+            
+                        
+                       
+                    </div>
+
+        </div>
+        
+        
+            
+    </body>
+
+
+</html>

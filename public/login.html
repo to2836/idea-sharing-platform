@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title>login page</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="./css/login.css">
+        <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+        <script>
+            $(document).ready(function(){
+
+                $('.sign_up').click(function(){
+                    location.href="/register.html";
+                });
+
+                $('.login_btn').click(()=>{
+                    var id=$('.id_input').val();
+                    var pw=$('.pw_input').val();
+
+                    $.post('/loginProcess',{id,pw},(res)=>{
+                        if(res=="success"){
+                            location.href="main.html";
+                        }
+                        else{
+                            $('.check_login').css('visibility','visible');
+                        }
+
+                    });
+                });
+               
+            });
+        </script>
+        
+    </head>
+    <body>
+
+
+        <div class='dialog'>
+
+                <div class="login_dialog">
+                        <h2 class="login_title">Sign In</h2>
+                        
+                        <div class="input_form">
+                           <div><p class='check_login' style="display: inline;color:red;margin-left:160px;font-weight:100;visibility: hidden;">로그인 실패</p></div>
+                            <h2 style="color: black;margin:0 auto;">ID</h2>
+                            <input class="id_input" type="text"></br></br>
+                            <h2 style="color: black;margin:0 auto;">Password</h2>
+                            <input class="pw_input" type="password">
+                          
+                            <div class="remember_check">
+                                <pre style="font-size: 17px;"><label><input class="remember_checkbox" type="checkbox"  >  Remember me?</label></pre>
+                            </div>      
+                            <div>
+                                    <button class="login_btn">Login</button>
+                            </div>
+                            <div class="sign_up">
+                                    <p>sign up for iSharing</p>
+                            </div>
+                            <div class="forgot_pw">
+                                <p>forgot password?</p>
+                            </div>
+                        </div> 
+                    </div>
+            
+                    
+                    <!-- <div class="register_dialog">
+                        <h2 class="register_title">Sign Up</h2>
+                        <div class="input_form">
+                            <h3 style="color: white;margin:0 auto;">ID</h3>
+                            <input class="register_id_input" type="text"></br></br>
+                            <h3 style="color: white;margin:0 auto;">Password</h3>
+                            <input class="register_pw_input" type="password"></br></br>
+                            <h3 style="color: white;margin:0 auto;">Confirm Password</h3>
+                            <input class="register_pw_input" type="password"></br></br>
+                            <h3 style="color: white;margin:0 auto;">E-mail</h3>
+                            <input class="register_email1_input" type="text"><span style="color:white"> @</span>
+                            <input class="register_email2_input" type="text">
+                            <select name="" id="">
+                                <option value="naver">naver.com</option>
+                                <option value="gmai">gmail.com</option>
+                                <option value="yahoo">yahoo.com</option>
+                            </select>
+                            </br></br>
+                            <h3 style="color: white;margin:0 auto;">Phone Number</h3>
+                            <input class="register_phone1_input" type="text"><span style="color:white"> -</span>
+                            <input class="register_phone2_input" type="text"><span style="color:white"> -</span>
+                            <input class="register_phone3_input" type="text">
+                            <div>
+                                <button class="register_btn">Sign Up</button>
+                            </div>
+                        </div>
+                    </div> -->
+
+        </div>
+       
+
+
+        
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+	</script>
+	<script>
+		$(document).ready(function(){
+			$("#submit").click(function(){
+				var ID = $("#id").val();
+				var PW = $("#pw").val();
+				$.post('/login',{id:ID,pw:PW},function(res){
+					if(res=="success"){
+						alert(ID);
+						alert(PW);
+					}
+					else if(res=="fail"){
+						alert("다시 입력");
+					}
+				});
+			});
+		});
+			
+	</script>
+</head>
+<body>
+	<label> ID : <input id="id"></label>
+	<label> PW : <input id="pw"> </label>
+    <button id="submit">Submit</button>
+    <button>register</button>
+</body>
+</html>
